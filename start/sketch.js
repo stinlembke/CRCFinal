@@ -1,4 +1,6 @@
+const cover = document.getElementById('cover');
 const colombina = document.getElementById('colombina');
+colombina.style.display = "none";
 
 let blue;
 let yellow;
@@ -40,3 +42,12 @@ function draw(){
 
     drawRiso();
 }
+
+cover.addEventListener('pointerdown', () => {
+    currentTime = millis();
+    console.log(currentTime)
+    // if(millis() = currentTime + 200) {
+    //     cover.style.display = "none";
+    //     console.log('working!')
+    // }
+});
