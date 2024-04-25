@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  width: 90%;
+  height: 80%;
+  margin: auto;
+  justify-content: center;
+  justify-self: center;
+  perspective: 600px;
+  display: grid;
+  grid-template-columns: 1;
+  grid-template-rows: 1;
+}
+
+#cover {
+  transition-property: transform;
+  transition-duration: 2s;
+  transition-delay: 1s;
+  transform-style: preserve-3d;
+  transform-origin: left;
+  z-index: 5;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#colombina {
+  z-index: 4;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#cover:hover {
+  transform: rotateY(-180deg);
+}
+
+/* @keyframes pageturnR {
+    from {
+        rotateX(0deg);
+    }
+} */
