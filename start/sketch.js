@@ -1,4 +1,15 @@
+//home page
 const cover = document.getElementById('cover');
+
+cover.addEventListener('pointerdown', () =>{
+    cover.classList.add('transformCover');
+    window.setTimeout(() => {
+        cover.remove();
+        console.log('removed');
+    }, 3000);
+});
+
+//colombina part
 const colombina = document.getElementById('colombina');
 colombina.style.display = "none";
 
