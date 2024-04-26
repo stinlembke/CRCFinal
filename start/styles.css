@@ -33,9 +33,6 @@ main {
   grid-template-rows: 1; */
 }
 
-main * {
-}
-
 #cover {
   transition-property: transform, opacity;
   transition-duration: 2s;
@@ -64,6 +61,11 @@ main * {
 
 #colombina {
   z-index: 4;
+  transition-property: transform, opacity;
+  transition-duration: 2s;
+  transition-delay: 1s;
+  transform-style: preserve-3d;
+  transform-origin: left;
   /* grid-column: 1;
   grid-row: 1; */
 }

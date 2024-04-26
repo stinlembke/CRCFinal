@@ -15,7 +15,8 @@ cover.addEventListener('pointerdown', () =>{
         // setupBg();
         // drawBg();
         console.log('removed');
-    }, 3000);
+        clearRiso();
+    }, 2000);
 });
 
 // cover.addEventListener('pointerdown', () => {
@@ -30,6 +31,15 @@ cover.addEventListener('pointerdown', () =>{
 //colombina part
 const colombina = document.getElementById('colombina');
 colombina.style.display = "none";
+
+colombina.addEventListener('pointerdown', () => {
+    colombina.classList.add('transformCover');
+    window.setTimeout(() => {
+        colombina.remove();
+        // colombina.style.display = "inherit";
+        console.log('removed 2');
+    }, 3000);
+});
 
 let blue;
 let yellow;
@@ -70,7 +80,7 @@ function draw(){
     let threshold = map(mouseX, 0, width, 0, 255);
 
     clearRiso();
-
+    // pink.image(imgCBG, 0,0);
     let dithered = ditherImage(imgM, ditherType, threshold);
     pink.image(dithered, imgCoffsetWidth,30);
     let ditheredY = ditherImage(imgY, ditherType2, 255);
