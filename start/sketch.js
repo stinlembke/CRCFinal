@@ -63,12 +63,13 @@ function setup() {
     fullWidth = window.innerWidth;
     fullHeight = window.innerHeight;
     pixelDensity(1);
-    const c1 = createCanvas(fullWidth, fullHeight);
+    // const c1 = createCanvas(fullWidth, fullHeight);
+    const c1 = createCanvas(525,600);
     c1.parent(colombina);
-    imgCoffsetWidth = (fullWidth/2)-(imgC.width/2);
-    imgCoffsetHeight = (fullHeight/2)-(imgC.height/2);
-    console.log(imgC.width, fullWidth/2);
-    console.log('calculated dimensions:', imgCoffsetWidth, imgCoffsetHeight);
+    // imgCoffsetWidth = (fullWidth/2)-(imgC.width/2);
+    // imgCoffsetHeight = (fullHeight/2)-(imgC.height/2);
+    // console.log(imgC.width, fullWidth/2);
+    // console.log('calculated dimensions:', imgCoffsetWidth, imgCoffsetHeight);
 
     blue = new Riso('blue');
     yellow = new Riso('YELLOW');
@@ -82,11 +83,11 @@ function draw(){
     clearRiso();
     // pink.image(imgCBG, 0,0);
     let dithered = ditherImage(imgM, ditherType, threshold);
-    pink.image(dithered, imgCoffsetWidth,30);
+    pink.image(dithered, 0,30);
     let ditheredY = ditherImage(imgY, ditherType2, 255);
-    yellow.image(ditheredY, imgCoffsetWidth,30);
+    yellow.image(ditheredY, 0,30);
     let ditheredC = ditherImage(imgC, ditherType, 100);
-    blue.image(ditheredC, imgCoffsetWidth,30);
+    blue.image(ditheredC, 0,30);
 
     drawRiso();
 }
