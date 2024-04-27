@@ -1,0 +1,4 @@
+[x] Make html button
+[x] overhaul css alignment
+[x] Make clicking the button change dither to halftone
+[ ] make halftones look good

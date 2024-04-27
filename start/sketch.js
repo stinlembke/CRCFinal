@@ -2,8 +2,10 @@
 const cover = document.getElementById('cover');
 const canvas = document.querySelectorAll('canvas');
 const body = document.querySelector('body');
+const modeButton = document.getElementById('modeButton');
 let fullWidth;
 let fullHeight;
+let mode = 1;
 
 
 cover.addEventListener('pointerdown', () =>{
@@ -18,6 +20,13 @@ cover.addEventListener('pointerdown', () =>{
         clearRiso();
     }, 2000);
 });
+
+modeButton.addEventListener('click', () => {
+    mode++;
+    if (mode==3) {
+        mode = 1;
+    }
+})
 
 // cover.addEventListener('pointerdown', () => {
 //     currentTime = millis();
@@ -62,34 +71,51 @@ function preload(){
 function setup() {
     fullWidth = window.innerWidth;
     fullHeight = window.innerHeight;
+    let canvasWidth = fullWidth * 0.8;
+    let canvasHeight = fullHeight * 0.8;
     pixelDensity(1);
     // const c1 = createCanvas(fullWidth, fullHeight);
     const c1 = createCanvas(525,600);
+    // const c1 = createCanvas(canvasWidth, canvasHeight);
     c1.parent(colombina);
     // imgCoffsetWidth = (fullWidth/2)-(imgC.width/2);
     // imgCoffsetHeight = (fullHeight/2)-(imgC.height/2);
     // console.log(imgC.width, fullWidth/2);
     // console.log('calculated dimensions:', imgCoffsetWidth, imgCoffsetHeight);
 
-    blue = new Riso('blue');
-    yellow = new Riso('YELLOW');
-    pink = new Riso('FLUORESCENTPINK');
+    cyanLayer = new Riso('blue');
+    magentaLayer = new Riso('FLUORESCENTPINK');
+    yellowLayer = new Riso('YELLOW');
 }
 
 function draw(){
     background (250);
     let threshold = map(mouseX, 0, width, 0, 255);
 
-    clearRiso();
+    // clearRiso();
     // pink.image(imgCBG, 0,0);
-    let dithered = ditherImage(imgM, ditherType, threshold);
-    pink.image(dithered, 0,30);
-    let ditheredY = ditherImage(imgY, ditherType2, 255);
-    yellow.image(ditheredY, 0,30);
-    let ditheredC = ditherImage(imgC, ditherType, 100);
-    blue.image(ditheredC, 0,30);
+    
+    //MODE WRANGLING
+    if (mode==1) {
+        clearRiso();
+        let ditheredC = ditherImage(imgC, ditherType, 100);
+        cyanLayer.image(ditheredC, 0,30);
+        let ditheredM = ditherImage(imgM, ditherType, threshold);
+        magentaLayer.image(ditheredM, 0,30);
+        let ditheredY = ditherImage(imgY, ditherType2, 255);
+        yellowLayer.image(ditheredY, 0,30);
+        drawRiso();
+    } else if (mode==2) { 
+        clearRiso();
+        let halftoneC = halftoneImage(imgC, 'circle', 2, 45, threshold);
+        cyanLayer.image(halftoneC, 0,30);
+        let halftoneM = halftoneImage(imgM, 'circle', 2, 45, 250);
+        magentaLayer.image(halftoneM, 0,30);
+        let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 200);
+        yellowLayer.image(halftoneY, 0,30);
+        drawRiso();
+    }
 
-    drawRiso();
 }
 
 window.addEventListener('resize', () => {
