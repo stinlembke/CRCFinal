@@ -50,6 +50,14 @@ let imgC;
 let ditherType = 'bayer';
 let ditherType2 = 'atkinson';
 
+//ascii variables
+let myAsciiArt;
+let asciiart_width = imgY.width; let asciiart_height = imgY.height;
+let images = [];
+let gfx;
+let ascii_arr;
+let cyclic_t;
+
 let imgCoffsetWidth;
 
 function preload(){
@@ -57,6 +65,12 @@ function preload(){
     imgM = loadImage('media/ColombinaRisoM.png');
     imgC = loadImage('media/ColombinaRisoC.png');
     imgCBG = loadImage('media/patternC.jpg');
+    // images[0] = imgY;
+    // images[1] = imgM;
+    // images[3] = imgC;
+    images[0] = loadImage('media/ColombinaRisoY.png');
+    images[1] = loadImage('media/ColombinaRisoM.png');
+    images[2] = loadImage('media/ColombinaRisoC.png');
 }
 
 let c1 = function(sketch) {
@@ -69,6 +83,13 @@ let c1 = function(sketch) {
         cyanLayer = new Riso('blue');
         magentaLayer = new Riso('FLUORESCENTPINK');
         yellowLayer = new Riso('YELLOW');
+        //ascii
+        gfx = createGraphics(asciiart_width, asciiart_height);
+        gfx.pixelDensity(1);
+        myAsciiArt = new AsciiArt(this);
+        myAsciiArt.printWeightTable();
+        textAlign(CENTER, CENTER); textFont('monospace', 8); textStyle(NORMAL);
+        frameRate(30);
     }
     sketch.draw = function() {
         background (250);
@@ -93,8 +114,17 @@ let c1 = function(sketch) {
             let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 200);
             yellowLayer.image(halftoneY, 0,30);
             drawRiso();
-        } else if (mode == 4){
-
+        } else if (mode == 3){
+            console.log('3');
+            cyclic_t = millis() * 0.0002 % images.length;
+            noStroke(); fill(255);
+            gfx.image(images[floor(cyclic_t)], 0, 0, gfx.width, gfx.height);
+            gfx.filter(POSTERIZE, 3);
+            ascii_arr = myAsciiArt.convert(gfx);
+            myAsciiArt.typeArray2d(ascii_arr, this);
+            tint(255, pow(1.0 - (cyclic_t % 1.0), 4) * 255);
+            image(images[floor(cyclic_t)], 0, 0, width, height);
+            noTint();
         }
         }
 };
