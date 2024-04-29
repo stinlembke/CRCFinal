@@ -23,7 +23,7 @@ cover.addEventListener('pointerdown', () =>{
 
 modeButton.addEventListener('click', () => {
     mode++;
-    if (mode==3) {
+    if (mode==4) {
         mode = 1;
     }
 })
@@ -71,8 +71,8 @@ function preload(){
 function setup() {
     fullWidth = window.innerWidth;
     fullHeight = window.innerHeight;
-    let canvasWidth = fullWidth * 0.8;
-    let canvasHeight = fullHeight * 0.8;
+    // let canvasWidth = fullWidth * 0.8;
+    // let canvasHeight = fullHeight * 0.8;
     pixelDensity(1);
     // const c1 = createCanvas(fullWidth, fullHeight);
     const c1 = createCanvas(525,600);
@@ -90,6 +90,8 @@ function setup() {
 
 function draw(){
     background (250);
+
+    //COLOMBINA
     let threshold = map(mouseX, 0, width, 0, 255);
 
     // clearRiso();
@@ -114,6 +116,8 @@ function draw(){
         let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 200);
         yellowLayer.image(halftoneY, 0,30);
         drawRiso();
+    } else if (mode == 4){
+
     }
 
 }
