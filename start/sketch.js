@@ -2,6 +2,8 @@
 const cover = document.getElementById('cover');
 const canvas = document.querySelectorAll('canvas');
 const body = document.querySelector('body');
+const clicknDragText = document.querySelector('h3');
+clicknDragText.style.display = "none";
 
 const colombina = document.getElementById('colombina');
 // const cCanvas = document.querySelectorAll('canvas');
@@ -10,20 +12,21 @@ const pierrot = document.getElementById('pierrot');
 pierrot.style.display = "none";
 let myCanvas;
 
-//tracking dithering & halftone
+const saveButton = document.getElementById('saveButton');
 const modeButton = document.getElementById('modeButton');
 let fullWidth;
 let fullHeight;
 let page = 0;
 let mode = 1;
 
-
+//page turn for colombina page
 cover.addEventListener('pointerdown', () =>{
     cover.classList.add('transformCover');
     window.setTimeout(() => {
         cover.remove();
         colombina.style.display = "block";
         page = 1;
+        mode=1;
         setup();
         draw();
         console.log('removed');
@@ -31,12 +34,19 @@ cover.addEventListener('pointerdown', () =>{
     }, 1000);
 });
 
+//tracking dithering & halftone
 modeButton.addEventListener('click', () => {
     mode++;
     if (mode==4) {
         mode = 1;
     }
-})
+    console.log(mode);
+});
+
+//exporting image
+saveButton.addEventListener('click', () => {
+    exportRiso();
+});
 
 colombina.addEventListener('pointerdown', () => {
     colombina.classList.add('transformCover');
@@ -44,6 +54,9 @@ colombina.addEventListener('pointerdown', () => {
         colombina.remove();
         pierrot.style.display = "inherit";
         page = 2;
+        mode=1;
+        changeSecondLayerColorBtn.style.display = "none";
+        changeFourthLayerColorBtn.style.display = "inline";
         console.log('removed 2');
         clearRiso();
     }, 2000);
@@ -95,46 +108,83 @@ function setup() {
 //     return RISOCOLORS.find(n => n.name === colorName);
 // }
 
+let thresholdY;
+let thresholdX;
+let thresholdXPosition;
+let thresholdYPosition;
+
+function mouseDragged(){
+    thresholdXPosition = mouseX;
+    thresholdX = map(thresholdXPosition, 0, width, 0, 255);
+    thresholdYPosition = mouseY;
+    thresholdY = map(thresholdYPosition, 0, height, 0, 255);
+}
+
 function draw(){
  
     background(250);
 
     if (page===1){
         //for dithering & halftone intensity
-        let threshold = map(mouseX, 0, width, 0, 255);
-        
+
         //MODE WRANGLING
         if (mode===1) {
             clearRiso();
-            let ditheredC = ditherImage(imgC, ditherType, 100);
+            firstLayer.image(imgC, 0,30);
+            secondLayer.image(imgM, 0,30);
+            thirdLayer.image(imgY, 0,30);
+            drawRiso();
+        }
+        if (mode===2) {
+            clearRiso();
+            clicknDragText.style.display = "inline";
+            let ditheredC = ditherImage(imgC, ditherType, thresholdY);
             firstLayer.image(ditheredC, 0,30);
-            let ditheredM = ditherImage(imgM, ditherType, threshold);
+            let ditheredM = ditherImage(imgM, ditherType, thresholdX);
             secondLayer.image(ditheredM, 0,30);
             let ditheredY = ditherImage(imgY, ditherType2, 255);
             thirdLayer.image(ditheredY, 0,30);
             drawRiso();
-        } else if (mode===2) { 
+        } else if (mode===3) { 
             clearRiso();
-            let halftoneC = halftoneImage(imgC, 'circle', 2, 45, threshold);
+            let halftoneC = halftoneImage(imgC, 'circle', 2, 45, thresholdY);
             firstLayer.image(halftoneC, 0,30);
-            let halftoneM = halftoneImage(imgM, 'circle', 2, 45, 250);
+            let halftoneM = halftoneImage(imgM, 'circle', 2, 45, thresholdX);
             secondLayer.image(halftoneM, 0,30);
-            let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 200);
+            let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 250);
             thirdLayer.image(halftoneY, 0,30);
             drawRiso();
-        } else if (mode===3){
-
-        }
+        } 
     } else if (page===2){
         myCanvas.parent(pierrot);
 
-        clearRiso();
-
-        thirdLayer.image(pY,0,-10);
-        fourthLayer.image(pM,5,0);
-        firstLayer.image(pC,0,0);
-
-        drawRiso();
+        if (mode===1) {
+            clearRiso();
+            thirdLayer.image(pY,0,-10);
+            fourthLayer.image(pM,5,0);
+            firstLayer.image(pC,0,0);
+            drawRiso();
+        }
+        if (mode===2) {
+            clearRiso();
+            clicknDragText.style.display = "inline";
+            let ditheredC = ditherImage(pC, ditherType, thresholdY);
+            firstLayer.image(ditheredC, 0,0);
+            let ditheredM = ditherImage(pM, ditherType, thresholdX);
+            fourthLayer.image(ditheredM, 5,0);
+            let ditheredY = ditherImage(pY, ditherType2, 255);
+            thirdLayer.image(ditheredY, 0,-10);
+            drawRiso();
+        } else if (mode===3) { 
+            clearRiso();
+            let halftoneC = halftoneImage(pC, 'circle', 2, 45, thresholdY);
+            firstLayer.image(halftoneC, 0,0);
+            let halftoneM = halftoneImage(pM, 'circle', 2, 45, thresholdX);
+            fourthLayer.image(halftoneM, 5,0);
+            let halftoneY = halftoneImage(pY, 'circle', 2, 45, 200);
+            thirdLayer.image(halftoneY,0,-10);
+            drawRiso();
+        } 
     }
 }
 
@@ -150,6 +200,7 @@ const getNextIndex = currentIndex => {
 const changeFirstLayerColorBtn = document.getElementById('layer1Color');
 const changeSecondLayerColorBtn = document.getElementById('layer2Color');
 const changeThirdLayerColorBtn = document.getElementById('layer3Color');
+const changeFourthLayerColorBtn = document.getElementById('layer2x2Color');
 
 changeFirstLayerColorBtn.addEventListener('click', () => {
     const firstLayerColor = RISOCOLORS[firstLayerIndex];
@@ -170,6 +221,12 @@ changeThirdLayerColorBtn.addEventListener('click', () => {
     thirdLayerIndex = getNextIndex(thirdLayerIndex);
 });
 
+changeFourthLayerColorBtn.addEventListener('click', () => {
+    const fourthLayerColor = RISOCOLORS[fourthLayerIndex];
+    fourthLayer = new Riso(fourthLayerColor.name);
+    fourthLayerIndex = getNextIndex(fourthLayerIndex);
+});
+
 
 window.addEventListener('resize', () => {
     setup();
@@ -177,6 +234,7 @@ window.addEventListener('resize', () => {
 });
 
 window.addEventListener('load', () => {
+    changeFourthLayerColorBtn.style.display = "none";
     setup();
     draw();
 });
