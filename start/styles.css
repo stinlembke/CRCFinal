@@ -45,7 +45,7 @@ aside.right {
 #cover {
   transition-property: transform, opacity;
   transition-duration: 2s;
-  transition-delay: 1s;
+  transition-delay: 0.2s;
   transform-style: preserve-3d;
   transform-origin: left;
   position: absolute;
@@ -80,6 +80,15 @@ aside.right {
   transform-origin: left;
   /* grid-column: 2 / 8;
   grid-row: 2 / 8; */
+}
+
+#pierrot {
+  z-index: 3;
+  transition-property: transform, opacity;
+  transition-duration: 2s;
+  transition-delay: 1s;
+  transform-style: preserve-3d;
+  transform-origin: left;
 }
 
 .left,

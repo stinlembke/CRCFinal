@@ -4,9 +4,10 @@ const canvas = document.querySelectorAll('canvas');
 const body = document.querySelector('body');
 
 const colombina = document.getElementById('colombina');
+// const cCanvas = document.querySelectorAll('canvas');
 colombina.style.display = "none";
 const pierrot = document.getElementById('pierrot');
-colombina.style.display = "pierrot";
+pierrot.style.display = "none";
 let myCanvas;
 
 //tracking dithering & halftone
@@ -21,11 +22,13 @@ cover.addEventListener('pointerdown', () =>{
     cover.classList.add('transformCover');
     window.setTimeout(() => {
         cover.remove();
-        colombina.style.display = "inherit";
+        colombina.style.display = "block";
         page = 1;
+        setup();
+        draw();
         console.log('removed');
         clearRiso();
-    }, 2000);
+    }, 1000);
 });
 
 modeButton.addEventListener('click', () => {
@@ -39,9 +42,11 @@ colombina.addEventListener('pointerdown', () => {
     colombina.classList.add('transformCover');
     window.setTimeout(() => {
         colombina.remove();
+        pierrot.style.display = "inherit";
         page = 2;
         console.log('removed 2');
-    }, 3000);
+        clearRiso();
+    }, 2000);
 });
 
 //RISO VARIABLES
@@ -55,10 +60,16 @@ let ditherType = 'bayer';
 let ditherType2 = 'atkinson';
 
 function preload(){
+    //colombina images
     imgY = loadImage('media/ColombinaRisoY.png');
     imgM = loadImage('media/ColombinaRisoM.png');
     imgC = loadImage('media/ColombinaRisoC.png');
-    imgCBG = loadImage('media/patternC.jpg');
+    // imgCBG = loadImage('media/patternC.jpg');
+
+    //pierrot images
+    pY = loadImage('media/pierrotY.PNG');
+    pM = loadImage('media/pierrotM.png');
+    pC = loadImage('media/pierrotC.png');
 }
 
 function setup() {
@@ -71,6 +82,7 @@ function setup() {
     cyanLayer = new Riso('blue');
     magentaLayer = new Riso('FLUORESCENTPINK');
     yellowLayer = new Riso('YELLOW');
+    orangeLayer = new Riso('ORANGE');
 }
 
 function draw(){
@@ -104,6 +116,14 @@ function draw(){
         }
     } else if (page=2){
         myCanvas.parent(pierrot);
+
+        clearRiso();
+
+        yellowLayer.image(pY,0,-10);
+        orangeLayer.image(pM,0,0);
+
+        drawRiso();
+        
     }
 
 }
