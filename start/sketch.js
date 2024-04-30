@@ -88,6 +88,7 @@ function setup() {
     thirdLayer = new Riso('YELLOW');
     fourthLayer = new Riso('ORANGE');
 }
+
 // color (from the RISOCOLORS array)
 
 // function getRisoColor(colorName) {
@@ -130,7 +131,8 @@ function draw(){
         clearRiso();
 
         thirdLayer.image(pY,0,-10);
-        fourthLayer.image(pM,0,0);
+        fourthLayer.image(pM,5,0);
+        firstLayer.image(pC,0,0);
 
         drawRiso();
     }
