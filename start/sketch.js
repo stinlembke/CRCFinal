@@ -2,9 +2,18 @@
 const cover = document.getElementById('cover');
 const canvas = document.querySelectorAll('canvas');
 const body = document.querySelector('body');
+
+const colombina = document.getElementById('colombina');
+colombina.style.display = "none";
+const pierrot = document.getElementById('pierrot');
+colombina.style.display = "pierrot";
+let myCanvas;
+
+//tracking dithering & halftone
 const modeButton = document.getElementById('modeButton');
 let fullWidth;
 let fullHeight;
+let page = 0;
 let mode = 1;
 
 
@@ -13,9 +22,7 @@ cover.addEventListener('pointerdown', () =>{
     window.setTimeout(() => {
         cover.remove();
         colombina.style.display = "inherit";
-        // body.classList.add('bg');
-        // setupBg();
-        // drawBg();
+        page = 1;
         console.log('removed');
         clearRiso();
     }, 2000);
@@ -28,28 +35,16 @@ modeButton.addEventListener('click', () => {
     }
 })
 
-// cover.addEventListener('pointerdown', () => {
-//     currentTime = millis();
-//     // console.log(currentTime)
-//     // if(millis() = currentTime + 200) {
-//     //     cover.style.display = "none";
-//     //     console.log('working!')
-//     // }
-// });
-
-//colombina part
-const colombina = document.getElementById('colombina');
-colombina.style.display = "none";
-
 colombina.addEventListener('pointerdown', () => {
     colombina.classList.add('transformCover');
     window.setTimeout(() => {
         colombina.remove();
-        // colombina.style.display = "inherit";
+        page = 2;
         console.log('removed 2');
     }, 3000);
 });
 
+//RISO VARIABLES
 let blue;
 let yellow;
 let pink
@@ -58,8 +53,6 @@ let imgM;
 let imgC;
 let ditherType = 'bayer';
 let ditherType2 = 'atkinson';
-
-let imgCoffsetWidth;
 
 function preload(){
     imgY = loadImage('media/ColombinaRisoY.png');
@@ -71,17 +64,9 @@ function preload(){
 function setup() {
     fullWidth = window.innerWidth;
     fullHeight = window.innerHeight;
-    // let canvasWidth = fullWidth * 0.8;
-    // let canvasHeight = fullHeight * 0.8;
     pixelDensity(1);
-    // const c1 = createCanvas(fullWidth, fullHeight);
-    const c1 = createCanvas(525,600);
-    // const c1 = createCanvas(canvasWidth, canvasHeight);
-    c1.parent(colombina);
-    // imgCoffsetWidth = (fullWidth/2)-(imgC.width/2);
-    // imgCoffsetHeight = (fullHeight/2)-(imgC.height/2);
-    // console.log(imgC.width, fullWidth/2);
-    // console.log('calculated dimensions:', imgCoffsetWidth, imgCoffsetHeight);
+    myCanvas = createCanvas(525,600);
+    myCanvas.parent(colombina);
 
     cyanLayer = new Riso('blue');
     magentaLayer = new Riso('FLUORESCENTPINK');
@@ -91,30 +76,34 @@ function setup() {
 function draw(){
     background (250);
 
-    //COLOMBINA
-    let threshold = map(mouseX, 0, width, 0, 255);
-    
-    //MODE WRANGLING
-    if (mode==1) {
-        clearRiso();
-        let ditheredC = ditherImage(imgC, ditherType, 100);
-        cyanLayer.image(ditheredC, 0,30);
-        let ditheredM = ditherImage(imgM, ditherType, threshold);
-        magentaLayer.image(ditheredM, 0,30);
-        let ditheredY = ditherImage(imgY, ditherType2, 255);
-        yellowLayer.image(ditheredY, 0,30);
-        drawRiso();
-    } else if (mode==2) { 
-        clearRiso();
-        let halftoneC = halftoneImage(imgC, 'circle', 2, 45, threshold);
-        cyanLayer.image(halftoneC, 0,30);
-        let halftoneM = halftoneImage(imgM, 'circle', 2, 45, 250);
-        magentaLayer.image(halftoneM, 0,30);
-        let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 200);
-        yellowLayer.image(halftoneY, 0,30);
-        drawRiso();
-    } else if (mode == 4){
+    if (page==1){
+        //for dithering & halftone intensity
+        let threshold = map(mouseX, 0, width, 0, 255);
+        
+        //MODE WRANGLING
+        if (mode==1) {
+            clearRiso();
+            let ditheredC = ditherImage(imgC, ditherType, 100);
+            cyanLayer.image(ditheredC, 0,30);
+            let ditheredM = ditherImage(imgM, ditherType, threshold);
+            magentaLayer.image(ditheredM, 0,30);
+            let ditheredY = ditherImage(imgY, ditherType2, 255);
+            yellowLayer.image(ditheredY, 0,30);
+            drawRiso();
+        } else if (mode==2) { 
+            clearRiso();
+            let halftoneC = halftoneImage(imgC, 'circle', 2, 45, threshold);
+            cyanLayer.image(halftoneC, 0,30);
+            let halftoneM = halftoneImage(imgM, 'circle', 2, 45, 250);
+            magentaLayer.image(halftoneM, 0,30);
+            let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 200);
+            yellowLayer.image(halftoneY, 0,30);
+            drawRiso();
+        } else if (mode == 4){
 
+        }
+    } else if (page=2){
+        myCanvas.parent(pierrot);
     }
 
 }
