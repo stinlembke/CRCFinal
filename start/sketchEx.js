@@ -28,6 +28,15 @@ modeButton.addEventListener('click', () => {
     }
 })
 
+// cover.addEventListener('pointerdown', () => {
+//     currentTime = millis();
+//     // console.log(currentTime)
+//     // if(millis() = currentTime + 200) {
+//     //     cover.style.display = "none";
+//     //     console.log('working!')
+//     // }
+// });
+
 //colombina part
 const colombina = document.getElementById('colombina');
 colombina.style.display = "none";
@@ -41,8 +50,6 @@ colombina.addEventListener('pointerdown', () => {
     }, 3000);
 });
 
-//riso variables
-
 let blue;
 let yellow;
 let pink
@@ -52,7 +59,7 @@ let imgC;
 let ditherType = 'bayer';
 let ditherType2 = 'atkinson';
 
-// let imgCoffsetWidth;
+let imgCoffsetWidth;
 
 function preload(){
     imgY = loadImage('media/ColombinaRisoY.png');
@@ -61,48 +68,25 @@ function preload(){
     imgCBG = loadImage('media/patternC.jpg');
 }
 
-let c1 = (sketch1) => {
-    sketch1.setup = () => {
-        fullWidth = window.innerWidth;
-        fullHeight = window.innerHeight;
-        pixelDensity(1);
-        const canvas1 = createCanvas(525,600);
-        canvas1.parent(colombina);
-        // imgCoffsetWidth = (fullWidth/2)-(imgC.width/2);
-        // imgCoffsetHeight = (fullHeight/2)-(imgC.height/2);
-        // console.log(imgC.width, fullWidth/2);
-        // console.log('calculated dimensions:', imgCoffsetWidth, imgCoffsetHeight);
+function setup() {
+    fullWidth = window.innerWidth;
+    fullHeight = window.innerHeight;
+    // let canvasWidth = fullWidth * 0.8;
+    // let canvasHeight = fullHeight * 0.8;
+    pixelDensity(1);
+    // const c1 = createCanvas(fullWidth, fullHeight);
+    const c1 = createCanvas(525,600);
+    // const c1 = createCanvas(canvasWidth, canvasHeight);
+    c1.parent(colombina);
+    // imgCoffsetWidth = (fullWidth/2)-(imgC.width/2);
+    // imgCoffsetHeight = (fullHeight/2)-(imgC.height/2);
+    // console.log(imgC.width, fullWidth/2);
+    // console.log('calculated dimensions:', imgCoffsetWidth, imgCoffsetHeight);
 
-        cyanLayer = new Riso('blue');
-        magentaLayer = new Riso('FLUORESCENTPINK');
-        yellowLayer = new Riso('YELLOW');
-    };
-    sketch1.draw = () => {
-        background (250);
-        let threshold = sketch1.map(sketch1.mouseX, 0, sketch1.width, 0, 255);
-
-        //MODE WRANGLING
-        if (mode==1) {
-            clearRiso();
-            let ditheredC = ditherImage(imgC, ditherType, 100);
-            cyanLayer.image(ditheredC, 0,30);
-            let ditheredM = ditherImage(imgM, ditherType, threshold);
-            magentaLayer.image(ditheredM, 0,30);
-            let ditheredY = ditherImage(imgY, ditherType2, 255);
-            yellowLayer.image(ditheredY, 0,30);
-            drawRiso();
-        } else if (mode==2) { 
-            clearRiso();
-            let halftoneC = halftoneImage(imgC, 'circle', 2, 45, threshold);
-            cyanLayer.image(halftoneC, 0,30);
-            let halftoneM = halftoneImage(imgM, 'circle', 2, 45, 250);
-            magentaLayer.image(halftoneM, 0,30);
-            let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 200);
-            yellowLayer.image(halftoneY, 0,30);
-            drawRiso();
-        }
-    };
-};
+    cyanLayer = new Riso('blue');
+    magentaLayer = new Riso('FLUORESCENTPINK');
+    yellowLayer = new Riso('YELLOW');
+}
 
 function draw(){
     background (250);
@@ -135,18 +119,14 @@ function draw(){
 
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-    myFirstCanvas = new p5(c1);
-});
-
 window.addEventListener('resize', () => {
-    myFirstCanvas.setup();
-    myFirstCanvas.draw();
+    setup();
+    draw();
 });
 
 window.addEventListener('load', () => {
-    myFirstCanvas.setup();
-    myFirstCanvas.draw();
+    setup();
+    draw();
 });
 
 //colombina bg
