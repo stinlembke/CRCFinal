@@ -149,7 +149,7 @@ function draw(){
             clearRiso();
             let halftoneC = halftoneImage(imgC, 'circle', 2, 45, thresholdY);
             firstLayer.image(halftoneC, 0,30);
-            let halftoneM = halftoneImage(imgM, 'circle', 2, 45, thresholdX);
+            let halftoneM = halftoneImage(imgM, 'circle', 3, 75, thresholdX);
             secondLayer.image(halftoneM, 0,30);
             let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 250);
             thirdLayer.image(halftoneY, 0,30);
@@ -181,7 +181,7 @@ function draw(){
             firstLayer.image(halftoneC, 0,0);
             let halftoneM = halftoneImage(pM, 'circle', 2, 45, thresholdX);
             fourthLayer.image(halftoneM, 5,0);
-            let halftoneY = halftoneImage(pY, 'circle', 2, 45, 200);
+            let halftoneY = halftoneImage(pY, 'circle', 2, 45, 250);
             thirdLayer.image(halftoneY,0,-10);
             drawRiso();
         } 
