@@ -12,12 +12,18 @@ const color2Dropdown = document.getElementById('color2Dropdown');
 const color3Dropdown = document.getElementById('color3Dropdown');
 const color4Dropdown = document.getElementById('color4Dropdown');
 // const cCanvas = document.querySelectorAll('canvas');
-colombina.style.display = "none";
-pierrot.style.display = "none";
-let myCanvas;
-
 const saveButton = document.getElementById('saveButton');
 const modeButton = document.getElementById('modeButton');
+colombina.style.display = "none";
+pierrot.style.display = "none";
+saveButton.style.display = 'none';
+modeButton.style.display = 'none';
+color1Dropdown.style.display = 'none';
+color2Dropdown.style.display = 'none';
+color3Dropdown.style.display = 'none';
+color4Dropdown.style.display = 'none';
+
+let myCanvas;
 let fullWidth;
 let fullHeight;
 let page = 0;
@@ -29,6 +35,11 @@ cover.addEventListener('pointerdown', () =>{
     window.setTimeout(() => {
         cover.remove();
         colombina.style.display = "block";
+        modeButton.style.display = 'inherit';
+        saveButton.style.display = 'inherit';
+        color1Dropdown.style.display = 'inherit';
+        color2Dropdown.style.display = 'inherit';
+        color3Dropdown.style.display = 'inherit';
         page = 1;
         mode=1;
         setup();
@@ -36,6 +47,21 @@ cover.addEventListener('pointerdown', () =>{
         console.log('removed');
         clearRiso();
     }, 1000);
+});
+
+//turning colombina page and creating pierrot page
+colombina.addEventListener('pointerdown', () => {
+    colombina.classList.add('transformCover');
+    window.setTimeout(() => {
+        colombina.remove();
+        pierrot.style.display = "inherit";
+        page = 2;
+        mode=1;
+        color2Dropdown.style.display = "none";
+        color4Dropdown.style.display = "inline";
+        console.log('removed 2');
+        clearRiso();
+    }, 2000);
 });
 
 //tracking dithering & halftone
@@ -51,43 +77,6 @@ modeButton.addEventListener('click', () => {
 saveButton.addEventListener('click', () => {
     exportRiso();
 });
-
-colombina.addEventListener('pointerdown', () => {
-    colombina.classList.add('transformCover');
-    window.setTimeout(() => {
-        colombina.remove();
-        pierrot.style.display = "inherit";
-        page = 2;
-        mode=1;
-        changeSecondLayerColorBtn.style.display = "none";
-        changeFourthLayerColorBtn.style.display = "inline";
-        console.log('removed 2');
-        clearRiso();
-    }, 2000);
-});
-
-//creating color picker dropdown menus
-function createColorDropdown(dropdownID){
-    const dropdown = document.getElementById(dropdownID);
-    dropdown.innerHTML = '';
-    
-    const defaultText = document.createElement('option');
-    defaultText.text = 'Color';
-    dropdown.add(defaultText);
-
-    RISOCOLORS.forEach(color => {
-        const select = document.createElement('option');
-        select.value = color.name;
-        select.text = color.name;
-        select.style.color = `rgb(${color.color.join(',')})`;
-        dropdown.add(select);
-    });
-}
-
-createColorDropdown('color1Dropdown');
-createColorDropdown('color2Dropdown');
-createColorDropdown('color3Dropdown');
-createColorDropdown('color4Dropdown');
 
 //RISO VARIABLES
 let imgY, imgM, imgC;
@@ -174,7 +163,6 @@ function draw(){
     background(250);
 
     if (page===1){
-        //for dithering & halftone intensity
 
         //MODE WRANGLING
         if (mode===1) {
@@ -235,6 +223,7 @@ function draw(){
         // } 
     }
 }
+}
 
 // Iterate first layer color, until its hit the end of the array. Then reset to 0
 const getNextIndex = currentIndex => {
@@ -244,36 +233,80 @@ const getNextIndex = currentIndex => {
     return currentIndex + 1;
 };
 
+//creating color picker dropdown menus
+function createColorDropdown(dropdownID){
+    const dropdown = document.getElementById(dropdownID);
+    dropdown.innerHTML = '';
+    
+    const defaultText = document.createElement('option');
+    defaultText.text = 'Color';
+    dropdown.add(defaultText);
+
+    RISOCOLORS.forEach(color => {
+        const select = document.createElement('option');
+        select.value = color.name;
+        select.text = color.name;
+        select.style.color = `rgb(${color.color.join(',')})`;
+        dropdown.add(select);
+    });
+
+    dropdown.addEventListener('change', () => {
+        if(dropdownID == 'color1Dropdown'){
+            const firstLayerColor = RISOCOLORS[firstLayerIndex];
+            console.log('Changing first layer color to ', firstLayerColor);
+            firstLayer = new Riso(firstLayerColor.name);
+            firstLayerIndex = getNextIndex(firstLayerIndex);
+        } else if(dropdownID == 'color2Dropdown'){
+            const secondLayerColor = RISOCOLORS[secondLayerIndex];
+            secondLayer = new Riso(secondLayerColor.name);
+            secondLayerIndex = getNextIndex(secondLayerIndex);    
+        } else if (dropdownID == 'color3Dropdown') {
+            const thirdLayerColor = RISOCOLORS[thirdLayerIndex];
+            thirdLayer = new Riso(thirdLayerColor.name);
+            thirdLayerIndex = getNextIndex(thirdLayerIndex);
+        } else if(dropdownID == 'color4Dropdown') {
+            const fourthLayerColor = RISOCOLORS[fourthLayerIndex];
+            fourthLayer = new Riso(fourthLayerColor.name);
+            fourthLayerIndex = getNextIndex(fourthLayerIndex);
+        }
+    });
+}
+
+createColorDropdown('color1Dropdown');
+createColorDropdown('color2Dropdown');
+createColorDropdown('color3Dropdown');
+createColorDropdown('color4Dropdown');
+
 //Color buttons
-const changeFirstLayerColorBtn = document.getElementById('layer1Color');
-const changeSecondLayerColorBtn = document.getElementById('layer2Color');
-const changeThirdLayerColorBtn = document.getElementById('layer3Color');
-const changeFourthLayerColorBtn = document.getElementById('layer2x2Color');
+// const changeFirstLayerColorBtn = document.getElementById('layer1Color');
+// const changeSecondLayerColorBtn = document.getElementById('layer2Color');
+// const changeThirdLayerColorBtn = document.getElementById('layer3Color');
+// const changeFourthLayerColorBtn = document.getElementById('layer2x2Color');
 
-changeFirstLayerColorBtn.addEventListener('click', () => {
-    const firstLayerColor = RISOCOLORS[firstLayerIndex];
-    console.log('Changing first layer color to ', firstLayerColor);
-    firstLayer = new Riso(firstLayerColor.name);
-    firstLayerIndex = getNextIndex(firstLayerIndex);
-});
+// changeFirstLayerColorBtn.addEventListener('click', () => {
+//     const firstLayerColor = RISOCOLORS[firstLayerIndex];
+//     console.log('Changing first layer color to ', firstLayerColor);
+//     firstLayer = new Riso(firstLayerColor.name);
+//     firstLayerIndex = getNextIndex(firstLayerIndex);
+// });
 
-changeSecondLayerColorBtn.addEventListener('click', () => {
-    const secondLayerColor = RISOCOLORS[secondLayerIndex];
-    secondLayer = new Riso(secondLayerColor.name);
-    secondLayerIndex = getNextIndex(secondLayerIndex);    
-});
+// changeSecondLayerColorBtn.addEventListener('click', () => {
+//     const secondLayerColor = RISOCOLORS[secondLayerIndex];
+//     secondLayer = new Riso(secondLayerColor.name);
+//     secondLayerIndex = getNextIndex(secondLayerIndex);    
+// });
 
-changeThirdLayerColorBtn.addEventListener('click', () => {
-    const thirdLayerColor = RISOCOLORS[thirdLayerIndex];
-    thirdLayer = new Riso(thirdLayerColor.name);
-    thirdLayerIndex = getNextIndex(thirdLayerIndex);
-});
+// changeThirdLayerColorBtn.addEventListener('click', () => {
+//     const thirdLayerColor = RISOCOLORS[thirdLayerIndex];
+//     thirdLayer = new Riso(thirdLayerColor.name);
+//     thirdLayerIndex = getNextIndex(thirdLayerIndex);
+// });
 
-changeFourthLayerColorBtn.addEventListener('click', () => {
-    const fourthLayerColor = RISOCOLORS[fourthLayerIndex];
-    fourthLayer = new Riso(fourthLayerColor.name);
-    fourthLayerIndex = getNextIndex(fourthLayerIndex);
-});
+// changeFourthLayerColorBtn.addEventListener('click', () => {
+//     const fourthLayerColor = RISOCOLORS[fourthLayerIndex];
+//     fourthLayer = new Riso(fourthLayerColor.name);
+//     fourthLayerIndex = getNextIndex(fourthLayerIndex);
+// });
 
 
 window.addEventListener('resize', () => {

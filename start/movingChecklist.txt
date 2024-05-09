@@ -1,3 +1,17 @@
+[x] make: color dropdown menus
+[x] make: buttons visible/invisible at appropriate times
+[ ] make: mode dropdown menu
+[ ] change: page turn to buttons
+[ ] make: page turn buttons in shape of arrows
+[ ] style: dropdown menus
+[ ] make: save button a download icon
+[ ] style: save button
+[ ] (optional) add: other dithering styles
+[ ] add: text to cover
+[ ] add: customize cover
+
+
+
 [x] Make html button
 [x] overhaul css alignment
 [x] Make clicking the button change dither to halftone
