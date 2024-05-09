@@ -11,6 +11,7 @@ const color1Dropdown = document.getElementById('color1Dropdown');
 const color2Dropdown = document.getElementById('color2Dropdown');
 const color3Dropdown = document.getElementById('color3Dropdown');
 const color4Dropdown = document.getElementById('color4Dropdown');
+// const cCanvas = document.querySelectorAll('canvas');
 const saveButton = document.getElementById('saveButton');
 const modeButton = document.getElementById('modeButton');
 colombina.style.display = "none";
@@ -82,6 +83,29 @@ let imgY, imgM, imgC;
 let bayer = 'bayer';
 let atkinson = 'atkinson';
 
+// GUI TIME
+// const gui = new dat.gui.GUI();
+
+// // gui fields
+// let guiFields = {
+//     color1: 'yellow',
+//     color2: 'fluorescentpink',
+//     color3: 'blue',
+
+//     mode: 'normal',
+// };
+
+// //gui visible
+// gui.remember(guiFields);
+
+// gui.addChoice(guiFields, 'color1');
+
+
+// gui layers folder
+// const layersFolder = gui.addFolder('Layers');
+// layersFolder.addColor()
+
+
 function preload(){
     //colombina images
     imgY = loadImage('media/ColombinaRisoY.png');
@@ -118,6 +142,12 @@ function setup() {
     fourthLayer = new Riso('ORANGE');
 }
 
+// color (from the RISOCOLORS array)
+
+// function getRisoColor(colorName) {
+//     return RISOCOLORS.find(n => n.name === colorName);
+// }
+
 let thresholdY, thresholdX;
 let thresholdXPosition, thresholdYPosition;
 
@@ -133,7 +163,7 @@ function mouseDragged(){
 function draw(){
  
     background(250);
-//colombina wrangling
+
     if (page===1){
 
         //MODE WRANGLING
@@ -164,7 +194,14 @@ function draw(){
             thirdLayer.image(ditheredY, 0,30);
             drawRiso();
         } 
-//pierrot wrangling
+        //     clearRiso();
+        //     let halftoneC = halftoneImage(imgC, 'circle', 2, 45, thresholdY);
+        //     firstLayer.image(halftoneC, 0,30);
+        //     let halftoneM = halftoneImage(imgM, 'circle', 3, 75, thresholdX);
+        //     secondLayer.image(halftoneM, 0,30);
+        //     let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 250);
+        //     thirdLayer.image(halftoneY, 0,30);
+        //     drawRiso();
     } else if (page===2){
         myCanvas.parent(pierrot);
 
@@ -185,9 +222,27 @@ function draw(){
             let ditheredY = ditherImage(pY, ditherType2, 255);
             thirdLayer.image(ditheredY, 0,-10);
             drawRiso();
+        // } else if (mode===3) { 
+        //     clearRiso();
+        //     let halftoneC = halftoneImage(pC, 'circle', 2, 45, thresholdY);
+        //     firstLayer.image(halftoneC, 0,0);
+        //     let halftoneM = halftoneImage(pM, 'circle', 2, 45, thresholdX);
+        //     fourthLayer.image(halftoneM, 5,0);
+        //     let halftoneY = halftoneImage(pY, 'circle', 2, 45, 250);
+        //     thirdLayer.image(halftoneY,0,-10);
+        //     drawRiso();
+        // } 
     }
-  }
 }
+}
+
+// Iterate first layer color, until its hit the end of the array. Then reset to 0
+// const getNextIndex = currentIndex => {
+//     if (currentIndex + 1 > RISOCOLORS.length) {
+//         return 0;
+//     }
+//     return currentIndex + 1;
+// };
 
 //creating color picker dropdown menus
 function createColorDropdown(dropdownID){
@@ -228,12 +283,57 @@ createColorDropdown('color2Dropdown');
 createColorDropdown('color3Dropdown');
 createColorDropdown('color4Dropdown');
 
+//Color buttons
+// const changeFirstLayerColorBtn = document.getElementById('layer1Color');
+// const changeSecondLayerColorBtn = document.getElementById('layer2Color');
+// const changeThirdLayerColorBtn = document.getElementById('layer3Color');
+// const changeFourthLayerColorBtn = document.getElementById('layer2x2Color');
+
+// changeFirstLayerColorBtn.addEventListener('click', () => {
+//     const firstLayerColor = RISOCOLORS[firstLayerIndex];
+//     console.log('Changing first layer color to ', firstLayerColor);
+//     firstLayer = new Riso(firstLayerColor.name);
+//     firstLayerIndex = getNextIndex(firstLayerIndex);
+// });
+
+// changeSecondLayerColorBtn.addEventListener('click', () => {
+//     const secondLayerColor = RISOCOLORS[secondLayerIndex];
+//     secondLayer = new Riso(secondLayerColor.name);
+//     secondLayerIndex = getNextIndex(secondLayerIndex);    
+// });
+
+// changeThirdLayerColorBtn.addEventListener('click', () => {
+//     const thirdLayerColor = RISOCOLORS[thirdLayerIndex];
+//     thirdLayer = new Riso(thirdLayerColor.name);
+//     thirdLayerIndex = getNextIndex(thirdLayerIndex);
+// });
+
+// changeFourthLayerColorBtn.addEventListener('click', () => {
+//     const fourthLayerColor = RISOCOLORS[fourthLayerIndex];
+//     fourthLayer = new Riso(fourthLayerColor.name);
+//     fourthLayerIndex = getNextIndex(fourthLayerIndex);
+// });
+
+
 window.addEventListener('resize', () => {
     setup();
     draw();
 });
 
 window.addEventListener('load', () => {
+    // changeFourthLayerColorBtn.style.display = "none";
     setup();
     draw();
 });
+
+//colombina bg
+// function setupBg (){
+//     pixelDensity(1);
+//     const cBg = createCanvas(window.innerWidth, window.innerHeight);
+//     cBg.parent(body);
+// }
+
+// function drawBg(){
+//     pink.image(cBg,0,0);
+//     drawRiso();
+// }

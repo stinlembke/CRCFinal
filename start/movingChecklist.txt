@@ -1,13 +1,17 @@
 [x] make: color dropdown menus
 [x] make: buttons visible/invisible at appropriate times
-[ ] make: mode dropdown menu
+[ ] add: more dithering
+[x] FIX: WHY IS IT ALL YELLOW NOW
+[x] FIX: color changing function
+[ ] change: click and drag to hovering over canvas
 [ ] change: page turn to buttons
 [ ] make: page turn buttons in shape of arrows
+[ ] make: mode icons
 [ ] style: dropdown menus
 [ ] make: save button a download icon
 [ ] style: save button
 [ ] (optional) add: other dithering styles
-[ ] add: text to cover
+[ ] add: text to cover & fix cover image
 [ ] add: customize cover
 
 
