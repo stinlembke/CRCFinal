@@ -1,8 +1,9 @@
 [x] make: color dropdown menus
 [x] make: buttons visible/invisible at appropriate times
-[ ] add: more dithering
 [x] FIX: WHY IS IT ALL YELLOW NOW
 [x] FIX: color changing function
+[ ] add: more dithering
+[ ] fix: new dithering
 [ ] change: click and drag to hovering over canvas
 [ ] change: page turn to buttons
 [ ] make: page turn buttons in shape of arrows

@@ -131,12 +131,12 @@ function mouseDragged(){
 }
 
 function draw(){
- 
     background(250);
 //colombina wrangling
     if (page===1){
 
-        //MODE WRANGLING
+    //MODE WRANGLING
+        //normal
         if (mode===1) {
             clearRiso();
             firstLayer.image(imgC, 0,30);
@@ -144,6 +144,7 @@ function draw(){
             thirdLayer.image(imgY, 0,30);
             drawRiso();
         }
+        //bayer dithering
         else if (mode===2) {
             clearRiso();
             clicknDragText.style.display = "inline";
@@ -154,6 +155,7 @@ function draw(){
             let ditheredY = ditherImage(imgY, bayer, 135);
             thirdLayer.image(ditheredY, 0,30);
             drawRiso();
+        //atkinson dithering
         } else if (mode===3) {
             clearRiso();
             let ditheredC = ditherImage(imgC, atkinson, thresholdY);
@@ -162,6 +164,7 @@ function draw(){
             secondLayer.image(ditheredM, 0,30);
             let ditheredY = ditherImage(imgY, atkinson, 255);
             thirdLayer.image(ditheredY, 0,30);
+            console.log('threshold:', thresholdX, thresholdY);
             drawRiso();
         } 
 //pierrot wrangling
@@ -197,7 +200,7 @@ function createColorDropdown(dropdownID){
     const defaultText = document.createElement('option');
     defaultText.text = 'Color';
     dropdown.add(defaultText);
-
+//dropdown menu contents
     RISOCOLORS.forEach(color => {
         const select = document.createElement('option');
         select.value = color.name;
@@ -205,7 +208,7 @@ function createColorDropdown(dropdownID){
         select.style.color = `rgb(${color.color.join(',')})`;
         dropdown.add(select);
     });
-
+//dropdown menu changing colors
     dropdown.addEventListener('change', () => {
         if(dropdownID == 'color1Dropdown'){
             const selectedColor = dropdown.value;
