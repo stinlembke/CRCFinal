@@ -2,8 +2,11 @@
 const cover = document.getElementById('cover');
 const canvas = document.querySelectorAll('canvas');
 const body = document.querySelector('body');
-const clicknDragText = document.querySelector('h3');
-clicknDragText.style.display = "none";
+
+const normalEye = new Image();
+const bayerEye = new Image();
+normalEye.src = 'media/normalEye.png';
+bayerEye.src = 'media/bayerEye.png';
 
 const colombina = document.getElementById('colombina');
 const pierrot = document.getElementById('pierrot');
@@ -13,6 +16,8 @@ const color3Dropdown = document.getElementById('color3Dropdown');
 const color4Dropdown = document.getElementById('color4Dropdown');
 const saveButton = document.getElementById('saveButton');
 const modeButton = document.getElementById('modeButton');
+const clicknDragText = document.querySelector('h3');
+clicknDragText.style.display = "none";
 colombina.style.display = "none";
 pierrot.style.display = "none";
 saveButton.style.display = 'none';
@@ -66,8 +71,9 @@ colombina.addEventListener('pointerdown', () => {
 //tracking dithering & halftone
 modeButton.addEventListener('click', () => {
     mode++;
-    if (mode==4) {
+    if (mode==3) {
         mode = 1;
+        modeButton.style.backgroundImage = 'url("media/bayerEye.png")';
     }
     console.log(mode);
 });
@@ -148,6 +154,7 @@ function draw(){
         else if (mode===2) {
             clearRiso();
             clicknDragText.style.display = "inline";
+            modeButton.style.backgroundImage = 'url("media/normalEye.png")';
             let ditheredC = ditherImage(imgC, bayer, thresholdY);
             firstLayer.image(ditheredC, 0,30);
             let ditheredM = ditherImage(imgM, bayer, thresholdX);
@@ -156,17 +163,17 @@ function draw(){
             thirdLayer.image(ditheredY, 0,30);
             drawRiso();
         //atkinson dithering
-        } else if (mode===3) {
-            clearRiso();
-            let ditheredC = ditherImage(imgC, atkinson, thresholdY);
-            firstLayer.image(ditheredC, 0,30);
-            let ditheredM = ditherImage(imgM, atkinson, thresholdX);
-            secondLayer.image(ditheredM, 0,30);
-            let ditheredY = ditherImage(imgY, atkinson, 255);
-            thirdLayer.image(ditheredY, 0,30);
-            console.log('threshold:', thresholdX, thresholdY);
-            drawRiso();
-        } 
+        // } else if (mode===3) {
+        //     clearRiso();
+        //     let ditheredC = ditherImage(imgC, atkinson, thresholdY);
+        //     firstLayer.image(ditheredC, 0,30);
+        //     let ditheredM = ditherImage(imgM, atkinson, thresholdX);
+        //     secondLayer.image(ditheredM, 0,30);
+        //     let ditheredY = ditherImage(imgY, atkinson, 255);
+        //     thirdLayer.image(ditheredY, 0,30);
+        //     console.log('threshold:', thresholdX, thresholdY);
+        //     drawRiso();
+        // } 
 //pierrot wrangling
     } else if (page===2){
         myCanvas.parent(pierrot);
@@ -188,6 +195,7 @@ function draw(){
             let ditheredY = ditherImage(pY, ditherType2, 255);
             thirdLayer.image(ditheredY, 0,-10);
             drawRiso();
+        }
     }
   }
 }

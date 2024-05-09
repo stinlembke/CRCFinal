@@ -107,6 +107,15 @@ aside.right {
   width: 40%;
 }
 
+#modeButton {
+  background-image: url("media/bayerEye.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: grab;
+  height: 35px;
+  width: 50px;
+}
+
 /* @keyframes pageturnR {
     from {
         rotateX(0deg);

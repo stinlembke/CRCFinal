@@ -4,10 +4,13 @@
 [x] FIX: color changing function
 [ ] add: more dithering
 [ ] fix: new dithering
+okay leave new dithering alone until core features are polisheddd
+
+[x] make: mode icons
+[ ] reset: colors when page turns
 [ ] change: click and drag to hovering over canvas
 [ ] change: page turn to buttons
 [ ] make: page turn buttons in shape of arrows
-[ ] make: mode icons
 [ ] style: dropdown menus
 [ ] make: save button a download icon
 [ ] style: save button
