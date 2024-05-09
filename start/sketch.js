@@ -6,9 +6,13 @@ const clicknDragText = document.querySelector('h3');
 clicknDragText.style.display = "none";
 
 const colombina = document.getElementById('colombina');
+const pierrot = document.getElementById('pierrot');
+const color1Dropdown = document.getElementById('color1Dropdown');
+const color2Dropdown = document.getElementById('color2Dropdown');
+const color3Dropdown = document.getElementById('color3Dropdown');
+const color4Dropdown = document.getElementById('color4Dropdown');
 // const cCanvas = document.querySelectorAll('canvas');
 colombina.style.display = "none";
-const pierrot = document.getElementById('pierrot');
 pierrot.style.display = "none";
 let myCanvas;
 
@@ -37,7 +41,7 @@ cover.addEventListener('pointerdown', () =>{
 //tracking dithering & halftone
 modeButton.addEventListener('click', () => {
     mode++;
-    if (mode==4) {
+    if (mode==3) {
         mode = 1;
     }
     console.log(mode);
@@ -68,19 +72,22 @@ function createColorDropdown(dropdownID){
     dropdown.innerHTML = '';
     
     const defaultText = document.createElement('option');
-    defaultText.text = 'Select Color';
+    defaultText.text = 'Color';
     dropdown.add(defaultText);
 
     RISOCOLORS.forEach(color => {
         const select = document.createElement('option');
         select.value = color.name;
         select.text = color.name;
-        select.style.color = color.name;
+        select.style.color = `rgb(${color.color.join(',')})`;
         dropdown.add(select);
     });
 }
 
 createColorDropdown('color1Dropdown');
+createColorDropdown('color2Dropdown');
+createColorDropdown('color3Dropdown');
+createColorDropdown('color4Dropdown');
 
 //RISO VARIABLES
 let imgY, imgM, imgC;
@@ -125,6 +132,7 @@ function preload(){
 
 let firstLayer, secondLayer, thirdLayer, fourthLayer;
 let firstLayerIndex, secondLayerIndex, thirdLayerIndex, fourthLayerIndex;
+
 function setup() {
     fullWidth = window.innerWidth;
     fullHeight = window.innerHeight;
@@ -151,10 +159,8 @@ function setup() {
 //     return RISOCOLORS.find(n => n.name === colorName);
 // }
 
-let thresholdY;
-let thresholdX;
-let thresholdXPosition;
-let thresholdYPosition;
+let thresholdY, thresholdX;
+let thresholdXPosition, thresholdYPosition;
 
 function mouseDragged(){
     thresholdXPosition = mouseX;
@@ -178,7 +184,7 @@ function draw(){
             thirdLayer.image(imgY, 0,30);
             drawRiso();
         }
-        if (mode===2) {
+        else if (mode===2) {
             clearRiso();
             clicknDragText.style.display = "inline";
             let ditheredC = ditherImage(imgC, ditherType, thresholdY);
@@ -188,16 +194,15 @@ function draw(){
             let ditheredY = ditherImage(imgY, ditherType2, 255);
             thirdLayer.image(ditheredY, 0,30);
             drawRiso();
-        } else if (mode===3) { 
-            clearRiso();
-            let halftoneC = halftoneImage(imgC, 'circle', 2, 45, thresholdY);
-            firstLayer.image(halftoneC, 0,30);
-            let halftoneM = halftoneImage(imgM, 'circle', 3, 75, thresholdX);
-            secondLayer.image(halftoneM, 0,30);
-            let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 250);
-            thirdLayer.image(halftoneY, 0,30);
-            drawRiso();
-        } 
+        }
+        //     clearRiso();
+        //     let halftoneC = halftoneImage(imgC, 'circle', 2, 45, thresholdY);
+        //     firstLayer.image(halftoneC, 0,30);
+        //     let halftoneM = halftoneImage(imgM, 'circle', 3, 75, thresholdX);
+        //     secondLayer.image(halftoneM, 0,30);
+        //     let halftoneY = halftoneImage(imgY, 'circle', 2, 45, 250);
+        //     thirdLayer.image(halftoneY, 0,30);
+        //     drawRiso();
     } else if (page===2){
         myCanvas.parent(pierrot);
 
@@ -218,16 +223,16 @@ function draw(){
             let ditheredY = ditherImage(pY, ditherType2, 255);
             thirdLayer.image(ditheredY, 0,-10);
             drawRiso();
-        } else if (mode===3) { 
-            clearRiso();
-            let halftoneC = halftoneImage(pC, 'circle', 2, 45, thresholdY);
-            firstLayer.image(halftoneC, 0,0);
-            let halftoneM = halftoneImage(pM, 'circle', 2, 45, thresholdX);
-            fourthLayer.image(halftoneM, 5,0);
-            let halftoneY = halftoneImage(pY, 'circle', 2, 45, 250);
-            thirdLayer.image(halftoneY,0,-10);
-            drawRiso();
-        } 
+        // } else if (mode===3) { 
+        //     clearRiso();
+        //     let halftoneC = halftoneImage(pC, 'circle', 2, 45, thresholdY);
+        //     firstLayer.image(halftoneC, 0,0);
+        //     let halftoneM = halftoneImage(pM, 'circle', 2, 45, thresholdX);
+        //     fourthLayer.image(halftoneM, 5,0);
+        //     let halftoneY = halftoneImage(pY, 'circle', 2, 45, 250);
+        //     thirdLayer.image(halftoneY,0,-10);
+        //     drawRiso();
+        // } 
     }
 }
 
