@@ -62,10 +62,53 @@ colombina.addEventListener('pointerdown', () => {
     }, 2000);
 });
 
+//creating color picker dropdown menus
+function createColorDropdown(dropdownID){
+    const dropdown = document.getElementById(dropdownID);
+    dropdown.innerHTML = '';
+    
+    const defaultText = document.createElement('option');
+    defaultText.text = 'Select Color';
+    dropdown.add(defaultText);
+
+    RISOCOLORS.forEach(color => {
+        const select = document.createElement('option');
+        select.value = color.name;
+        select.text = color.name;
+        select.style.color = color.name;
+        dropdown.add(select);
+    });
+}
+
+createColorDropdown('color1Dropdown');
+
 //RISO VARIABLES
 let imgY, imgM, imgC;
 let ditherType = 'bayer';
 let ditherType2 = 'atkinson';
+
+// GUI TIME
+// const gui = new dat.gui.GUI();
+
+// // gui fields
+// let guiFields = {
+//     color1: 'yellow',
+//     color2: 'fluorescentpink',
+//     color3: 'blue',
+
+//     mode: 'normal',
+// };
+
+// //gui visible
+// gui.remember(guiFields);
+
+// gui.addChoice(guiFields, 'color1');
+
+
+// gui layers folder
+// const layersFolder = gui.addFolder('Layers');
+// layersFolder.addColor()
+
 
 function preload(){
     //colombina images
