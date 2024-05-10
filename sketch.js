@@ -182,8 +182,8 @@ function preload(){
 
     //pierrot images
     pY = loadImage('media/pierrotY.PNG');
-    pM = loadImage('media/pierrotM.png');
-    pC = loadImage('media/pierrotC.png');
+    pM = loadImage('media/pierrotM.PNG');
+    pC = loadImage('media/pierrotC.PNG');
 }
 
 let firstLayer, secondLayer, thirdLayer, fourthLayer;
