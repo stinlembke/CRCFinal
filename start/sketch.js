@@ -16,6 +16,8 @@ const color3Dropdown = document.getElementById('color3Dropdown');
 const color4Dropdown = document.getElementById('color4Dropdown');
 const saveButton = document.getElementById('saveButton');
 const modeButton = document.getElementById('modeButton');
+const pageBack = document.getElementById('pageBack');
+const pageNext = document.getElementById('pageNext');
 // const clicknDragText = document.querySelector('h3');
 // clicknDragText.style.display = "none";
 colombina.style.display = "none";
@@ -33,44 +35,106 @@ let fullHeight;
 let page = 0;
 let mode = 1;
 
-//page turn to colombina page
-cover.addEventListener('pointerdown', () =>{
-    cover.classList.add('transformCover');
-    window.setTimeout(() => {
-        cover.remove();
-        colombina.style.display = "block";
-        modeButton.style.display = 'inherit';
-        saveButton.style.display = 'inherit';
-        color1Dropdown.style.display = 'inherit';
-        color2Dropdown.style.display = 'inherit';
-        color3Dropdown.style.display = 'inherit';
-        page = 1;
-        mode=1;
-        setup();
-        draw();
-        console.log('removed');
-        clearRiso();
-    }, 1000);
+///new page turn function
+pageNext.addEventListener('click', () => {
+    if (page === 0){
+        cover.classList.add('transformCover');
+        window.setTimeout(() => {
+            cover.style.display = 'none';
+            colombina.style.display = "block";
+            modeButton.style.display = 'inherit';
+            saveButton.style.display = 'inherit';
+            color1Dropdown.style.display = 'inherit';
+            color2Dropdown.style.display = 'inherit';
+            color3Dropdown.style.display = 'inherit';
+            page = 1;
+            mode=1;
+            setup();
+            draw();
+            console.log('removed');
+            clearRiso();
+            cover.classList.remove('transformCover');
+        }, 1000); 
+    }
+    if(page === 1){
+        colombina.classList.add('transformCover');
+        window.setTimeout(() => {
+            colombina.remove();
+            pierrot.style.display = "inherit";
+            page = 2;
+            mode=1;
+            color2Dropdown.style.display = "none";
+            color4Dropdown.style.display = "inline";
+            console.log('removed 2');
+            firstLayer = new Riso('BLUE');
+            secondLayer = new Riso('FLUORESCENTPINK');
+            thirdLayer = new Riso('YELLOW');
+            fourthLayer = new Riso('ORANGE');
+            clearRiso();
+            colombina.classList.remove('transformCover');
+        }, 2000);
+    }
 });
 
-//turning colombina page and creating pierrot page
-colombina.addEventListener('pointerdown', () => {
-    colombina.classList.add('transformCover');
-    window.setTimeout(() => {
-        colombina.remove();
-        pierrot.style.display = "inherit";
-        page = 2;
-        mode=1;
-        color2Dropdown.style.display = "none";
-        color4Dropdown.style.display = "inline";
-        console.log('removed 2');
-    firstLayer = new Riso('BLUE');
-    secondLayer = new Riso('FLUORESCENTPINK');
-    thirdLayer = new Riso('YELLOW');
-    fourthLayer = new Riso('ORANGE');
-        clearRiso();
-    }, 2000);
+pageBack.addEventListener('click', () => {
+    if(page ===1){
+        // body.appendChild(cover);
+        cover.style.display = 'block';
+        cover.classList.add('reversePageTurn');
+        window.setTimeout(() => {
+            page = 0;
+            colombina.style.display = "none";
+            pierrot.style.display = "none";
+            saveButton.style.display = 'none';
+            modeButton.style.display = 'none';
+            color1Dropdown.style.display = 'none';
+            color2Dropdown.style.display = 'none';
+            color3Dropdown.style.display = 'none';
+            color4Dropdown.style.display = 'none';
+            clearRiso();
+            cover.classList.remove('reversePageTurn');
+        }, 2000);
+    }
 });
+
+//page turn to colombina page
+// cover.addEventListener('pointerdown', () =>{
+//     cover.classList.add('transformCover');
+//     window.setTimeout(() => {
+//         cover.remove();
+//         colombina.style.display = "block";
+//         modeButton.style.display = 'inherit';
+//         saveButton.style.display = 'inherit';
+//         color1Dropdown.style.display = 'inherit';
+//         color2Dropdown.style.display = 'inherit';
+//         color3Dropdown.style.display = 'inherit';
+//         page = 1;
+//         mode=1;
+//         setup();
+//         draw();
+//         console.log('removed');
+//         clearRiso();
+//     }, 1000);
+// });
+
+//turning colombina page and creating pierrot page
+// colombina.addEventListener('pointerdown', () => {
+//     colombina.classList.add('transformCover');
+//     window.setTimeout(() => {
+//         colombina.remove();
+//         pierrot.style.display = "inherit";
+//         page = 2;
+//         mode=1;
+//         color2Dropdown.style.display = "none";
+//         color4Dropdown.style.display = "inline";
+//         console.log('removed 2');
+//     firstLayer = new Riso('BLUE');
+//     secondLayer = new Riso('FLUORESCENTPINK');
+//     thirdLayer = new Riso('YELLOW');
+//     fourthLayer = new Riso('ORANGE');
+//         clearRiso();
+//     }, 2000);
+// });
 
 //tracking dithering & halftone
 modeButton.addEventListener('click', () => {

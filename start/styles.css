@@ -16,6 +16,10 @@ html {
   background-position: 0%;
 } */
 
+body {
+  background-image: url(media/diamondBg.jpg);
+}
+
 main {
   width: 100%;
   height: 100%;
@@ -69,6 +73,19 @@ aside.right {
 .transformCover {
   transform: rotateY(-180deg);
   opacity: 0;
+}
+
+@keyframes reversePageTurn {
+  from {
+    transform: rotateY(-180deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+.reversePageTurn {
+  animation: reversePageTurn 2s;
 }
 
 #colombina {
