@@ -7,8 +7,8 @@
 [x] make: back page turn animation
 [x] add: bg
 [x] make: page turn buttons arrows
-[ ] make: save button a download icon
-[ ] style: dropdown menus
+[x] make: save button a download icon
+[x] style: dropdown menus
 [ ] add: text to cover & fix cover image
 [ ] add: customize cover
 

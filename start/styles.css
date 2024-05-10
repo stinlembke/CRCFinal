@@ -56,7 +56,8 @@ aside.right {
   transition-delay: 0.2s;
   transform-style: preserve-3d;
   transform-origin: left;
-  position: absolute;
+  height: 85vh;
+  padding-bottom: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,7 +65,6 @@ aside.right {
   align-self: center;
   margin: auto;
   z-index: 5;
-  top: 10%;
   /* grid-column: 1 / 9;
   grid-row: 1 / 9; */
 }
