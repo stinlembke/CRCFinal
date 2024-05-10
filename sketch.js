@@ -192,7 +192,7 @@ let firstLayerIndex, secondLayerIndex, thirdLayerIndex, fourthLayerIndex;
 function setup() {
     fullWidth = window.innerWidth;
     fullHeight = window.innerHeight;
-    pixelDensity(1);
+    // pixelDensity(1);
     myCanvas = createCanvas(525,600);
     myCanvas.parent(colombina);
     
