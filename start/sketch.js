@@ -16,8 +16,8 @@ const color3Dropdown = document.getElementById('color3Dropdown');
 const color4Dropdown = document.getElementById('color4Dropdown');
 const saveButton = document.getElementById('saveButton');
 const modeButton = document.getElementById('modeButton');
-const clicknDragText = document.querySelector('h3');
-clicknDragText.style.display = "none";
+// const clicknDragText = document.querySelector('h3');
+// clicknDragText.style.display = "none";
 colombina.style.display = "none";
 pierrot.style.display = "none";
 saveButton.style.display = 'none';
@@ -33,7 +33,7 @@ let fullHeight;
 let page = 0;
 let mode = 1;
 
-//page turn for colombina page
+//page turn to colombina page
 cover.addEventListener('pointerdown', () =>{
     cover.classList.add('transformCover');
     window.setTimeout(() => {
@@ -64,6 +64,10 @@ colombina.addEventListener('pointerdown', () => {
         color2Dropdown.style.display = "none";
         color4Dropdown.style.display = "inline";
         console.log('removed 2');
+    firstLayer = new Riso('BLUE');
+    secondLayer = new Riso('FLUORESCENTPINK');
+    thirdLayer = new Riso('YELLOW');
+    fourthLayer = new Riso('ORANGE');
         clearRiso();
     }, 2000);
 });
@@ -127,14 +131,20 @@ function setup() {
 let thresholdY, thresholdX;
 let thresholdXPosition, thresholdYPosition;
 
-// canvas.addEventListener
-
 function mouseDragged(){
+    console.log('hovering');
     thresholdXPosition = mouseX;
     thresholdX = map(thresholdXPosition, 0, width, 0, 255);
     thresholdYPosition = mouseY;
     thresholdY = map(thresholdYPosition, 0, height, 0, 255);
 }
+
+// function mouseDragged(){
+//     thresholdXPosition = mouseX;
+//     thresholdX = map(thresholdXPosition, 0, width, 0, 255);
+//     thresholdYPosition = mouseY;
+//     thresholdY = map(thresholdYPosition, 0, height, 0, 255);
+// }
 
 function draw(){
     background(250);
@@ -153,7 +163,7 @@ function draw(){
         //bayer dithering
         else if (mode===2) {
             clearRiso();
-            clicknDragText.style.display = "inline";
+            // clicknDragText.style.display = "inline";
             modeButton.style.backgroundImage = 'url("media/normalEye.png")';
             let ditheredC = ditherImage(imgC, bayer, thresholdY);
             firstLayer.image(ditheredC, 0,30);
@@ -162,6 +172,7 @@ function draw(){
             let ditheredY = ditherImage(imgY, bayer, 135);
             thirdLayer.image(ditheredY, 0,30);
             drawRiso();
+        }
         //atkinson dithering
         // } else if (mode===3) {
         //     clearRiso();
@@ -187,18 +198,18 @@ function draw(){
         }
         if (mode===2) {
             clearRiso();
-            clicknDragText.style.display = "inline";
-            let ditheredC = ditherImage(pC, ditherType, thresholdY);
+            // clicknDragText.style.display = "inline";
+            modeButton.style.backgroundImage = 'url("media/normalEye.png")';
+            let ditheredC = ditherImage(pC, bayer, thresholdY);
             firstLayer.image(ditheredC, 0,0);
-            let ditheredM = ditherImage(pM, ditherType, thresholdX);
+            let ditheredM = ditherImage(pM, bayer, thresholdX);
             fourthLayer.image(ditheredM, 5,0);
-            let ditheredY = ditherImage(pY, ditherType2, 255);
+            let ditheredY = ditherImage(pY, atkinson, 255);
             thirdLayer.image(ditheredY, 0,-10);
             drawRiso();
         }
     }
   }
-}
 
 //creating color picker dropdown menus
 function createColorDropdown(dropdownID){

@@ -7,10 +7,12 @@
 okay leave new dithering alone until core features are polisheddd
 
 [x] make: mode icons
-[ ] reset: colors when page turns
+[x] fix: WHY IS PIERROT CANVAS NOT SHOWING UP!???????
+[x] reset: colors when page turns
+[x] fix: pierrot dithering
 [ ] change: click and drag to hovering over canvas
-[ ] change: page turn to buttons
-[ ] make: page turn buttons in shape of arrows
+[x] change: click & drag text to custom cursor
+
 [ ] style: dropdown menus
 [ ] make: save button a download icon
 [ ] style: save button

@@ -116,6 +116,10 @@ aside.right {
   width: 50px;
 }
 
+canvas {
+  cursor: grab;
+}
+
 /* @keyframes pageturnR {
     from {
         rotateX(0deg);
