@@ -95,6 +95,21 @@ pageBack.addEventListener('click', () => {
             cover.classList.remove('reversePageTurn');
         }, 2000);
     }
+    if(page ===2){
+        // body.appendChild(cover);
+        colombina.style.display = 'block';
+        colombina.classList.add('reversePageTurn');
+        window.setTimeout(() => {
+            page = 1;
+            pierrot.style.display = "none";
+            firstLayer = new Riso('BLUE');
+            secondLayer = new Riso('FLUORESCENTPINK');
+            thirdLayer = new Riso('YELLOW');
+            fourthLayer = new Riso('ORANGE');
+            clearRiso();
+            colombina.classList.remove('reversePageTurn');
+        }, 2000);
+    }
 });
 
 //page turn to colombina page

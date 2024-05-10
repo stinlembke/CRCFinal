@@ -1,6 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap");
+
 * {
   margin: 0;
   padding: 0;
+  font-family: "Poetsen One", sans-serif;
+  color: rgb(105, 106, 33);
 }
 
 body,
@@ -124,22 +128,63 @@ aside.right {
   width: 40%;
 }
 
-#modeButton {
-  background-image: url("media/bayerEye.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  cursor: grab;
-  height: 35px;
-  width: 50px;
-}
-
 canvas {
   cursor: grab;
 }
 
+button {
+  border-style: dotted;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: grab;
+}
+
+select {
+  background-color: rgb(241, 237, 213);
+  border-radius: 10px;
+  border-color: rgb(193, 202, 75);
+  border-style: dotted;
+}
+
+#pageBack {
+  background-image: url("media/arrowLeft.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgb(241, 237, 213);
+}
+
+#pageNext {
+  background-image: url("media/arrowRight.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgb(236, 179, 222);
+}
+
 #pageBack,
 #pageNext {
-  background-color: ;
+  width: 30px;
+  height: 30px;
+}
+
+#modeButton {
+  background-image: url("media/bayerEye.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 35px;
+  width: 50px;
+  background-color: rgb(236, 179, 222);
+  border: rgb(148, 34, 53);
+}
+
+#saveButton {
+  background-image: url("media/arrowDown.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: rgb(148, 34, 53);
+  cursor: grab;
+  height: 30px;
+  width: 30px;
+  background-color: rgb(236, 179, 222);
 }
 
 /* @keyframes pageturnR {
