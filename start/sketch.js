@@ -59,7 +59,7 @@ pageNext.addEventListener('click', () => {
     if(page === 1){
         colombina.classList.add('transformCover');
         window.setTimeout(() => {
-            colombina.remove();
+            colombina.style.display = "none";
             pierrot.style.display = "inherit";
             page = 2;
             mode=1;
@@ -96,11 +96,12 @@ pageBack.addEventListener('click', () => {
         }, 2000);
     }
     if(page ===2){
-        // body.appendChild(cover);
+        page = 1;
+        setup();
+        draw();
         colombina.style.display = 'block';
         colombina.classList.add('reversePageTurn');
         window.setTimeout(() => {
-            page = 1;
             pierrot.style.display = "none";
             firstLayer = new Riso('BLUE');
             secondLayer = new Riso('FLUORESCENTPINK');
