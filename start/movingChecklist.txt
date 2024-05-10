@@ -1,3 +1,19 @@
+
+[x] make: mode icons
+[x] fix: WHY IS PIERROT CANVAS NOT SHOWING UP!???????
+[x] reset: colors when page turns
+[x] fix: pierrot dithering
+[x] change: click & drag text to custom cursor
+[x] make: back page turn animation
+[x] add: bg
+[x] make: page turn buttons arrows
+[ ] make: save button a download icon
+[ ] style: dropdown menus
+[ ] add: text to cover & fix cover image
+[ ] add: customize cover
+
+
+/////
 [x] make: color dropdown menus
 [x] make: buttons visible/invisible at appropriate times
 [x] FIX: WHY IS IT ALL YELLOW NOW
@@ -5,22 +21,6 @@
 [ ] add: more dithering
 [ ] fix: new dithering
 okay leave new dithering alone until core features are polisheddd
-
-[x] make: mode icons
-[x] fix: WHY IS PIERROT CANVAS NOT SHOWING UP!???????
-[x] reset: colors when page turns
-[x] fix: pierrot dithering
-[ ] change: click and drag to hovering over canvas
-[x] change: click & drag text to custom cursor
-
-[ ] style: dropdown menus
-[ ] make: save button a download icon
-[ ] style: save button
-[ ] (optional) add: other dithering styles
-[ ] add: text to cover & fix cover image
-[ ] add: customize cover
-
-
 
 [x] Make html button
 [x] overhaul css alignment

@@ -219,9 +219,9 @@ function draw(){
         //normal
         if (mode===1) {
             clearRiso();
-            firstLayer.image(imgC, 0,30);
-            secondLayer.image(imgM, 0,30);
-            thirdLayer.image(imgY, 0,30);
+            firstLayer.image(imgC, 0,0);
+            secondLayer.image(imgM, 0,0);
+            thirdLayer.image(imgY, 0,0);
             drawRiso();
         }
         //bayer dithering
@@ -230,11 +230,11 @@ function draw(){
             // clicknDragText.style.display = "inline";
             modeButton.style.backgroundImage = 'url("media/normalEye.png")';
             let ditheredC = ditherImage(imgC, bayer, thresholdY);
-            firstLayer.image(ditheredC, 0,30);
+            firstLayer.image(ditheredC, 0,0);
             let ditheredM = ditherImage(imgM, bayer, thresholdX);
-            secondLayer.image(ditheredM, 0,30);
+            secondLayer.image(ditheredM, 0,0);
             let ditheredY = ditherImage(imgY, bayer, 135);
-            thirdLayer.image(ditheredY, 0,30);
+            thirdLayer.image(ditheredY, 0,0);
             drawRiso();
         }
         //atkinson dithering

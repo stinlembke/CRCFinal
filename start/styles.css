@@ -137,6 +137,11 @@ canvas {
   cursor: grab;
 }
 
+#pageBack,
+#pageNext {
+  background-color: ;
+}
+
 /* @keyframes pageturnR {
     from {
         rotateX(0deg);
