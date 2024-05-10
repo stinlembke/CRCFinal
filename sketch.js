@@ -35,7 +35,7 @@ let fullHeight;
 let page = 0;
 let mode = 1;
 
-///new page turn function
+///new page turn function, turning page forward
 pageNext.addEventListener('click', () => {
     if (page === 0){
         cover.classList.add('transformCover');
@@ -76,6 +76,7 @@ pageNext.addEventListener('click', () => {
     }
 });
 
+//turning page back
 pageBack.addEventListener('click', () => {
     if(page ===1){
         // body.appendChild(cover);
